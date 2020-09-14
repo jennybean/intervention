@@ -44,3 +44,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Various editor tmp files
+*.swp
+*.swo
+*.tmproj
+dump.rdb
