@@ -9,17 +9,25 @@ const getRandomColor = () => {
   return color;
 };
 
-export const calculatorTextColor = (color) =>
-  !(parseInt(color.replace("#", ""), 16) > 0xffffff / 2);
+const invertHex = (hex) =>
+  "#" +
+  (Number(`0x1${hex.replace("#", "")}`) ^ 0xffffff)
+    .toString(16)
+    .substr(1)
+    .toUpperCase();
+
+export const calculateTextColor = (color) =>
+  !(parseInt(color.replace("#", ""), 16) > 0xffffff / 2) ? "white" : "black";
 
 const getTheme = () => {
   const primaryColor = getRandomColor();
+  const inverseColor = invertHex(primaryColor);
 
   return {
+    inverseColor,
     lighterColor: transparentize(0.4, primaryColor),
     primaryColor,
-    textColor: calculatorTextColor(primaryColor) ? "white" : "black",
-    buttonTextColor: calculatorTextColor(primaryColor) ? primaryColor : "black",
+    textColor: calculateTextColor(primaryColor),
   };
 };
 

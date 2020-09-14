@@ -2,7 +2,10 @@ import React from "react";
 import styled from "@emotion/styled";
 import { ThemeProvider } from "emotion-theming";
 import getTheme from "./getTheme";
-import Widget from "./components/widget";
+import AdminPage from "./AdminPage";
+import MemberPage from "./MemberPage";
+
+import data from "./components/data";
 
 const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
   alignItems: "center",
@@ -15,9 +18,7 @@ const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
 
 const App = () => (
   <ThemeProvider theme={getTheme()}>
-    <StyledApp>
-      <Widget />
-    </StyledApp>
+    <StyledApp>{data.isAdmin ? <AdminPage /> : <MemberPage />}</StyledApp>
   </ThemeProvider>
 );
 

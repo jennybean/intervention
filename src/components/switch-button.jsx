@@ -14,7 +14,7 @@ const Label = styled.label(({ checked, theme: { primaryColor } }) => ({
   backgroundColor: checked ? primaryColor : "lightgrey",
 }));
 
-const Switch = ({ label }) => {
+const SwitchButton = ({ label }) => {
   const [checked, setChecked] = useState(false);
   const uuid = uuidv4();
 
@@ -35,4 +35,4 @@ const Switch = ({ label }) => {
   );
 };
 
-export default Switch;
+export default SwitchButton;

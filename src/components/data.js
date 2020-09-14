@@ -1,9 +1,10 @@
 const data = {
-  name: "Sailor Moon",
+  name: "Sailor Mercury",
+  isAdmin: true,
   avatar:
-    "https://i.pinimg.com/474x/77/a8/ac/77a8ac9c917f617f17ab11510e742e83.jpg",
-  selfNeedsIntervention: false,
-  teamNeedsIntervention: true,
+    "https://pbs.twimg.com/profile_images/422591786733674496/D6NYI7Ha.jpeg",
+  selfNeedsIntervention: 0.4,
+  teamNeedsIntervention: 0.6,
 };
 
 export default data;

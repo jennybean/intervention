@@ -8,6 +8,7 @@ const StyledButton = styled.button(({ theme: { primaryColor } }) => ({
   color: primaryColor,
   fontSize: 12,
   fontWeight: "bold",
+  padding: 3,
   "&:active, &:focus": {
     outline: "none",
   },
