@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :logins, only: [:create, :destroy]
       resources :users
+      resources :projects
+      resources :project_questions
     end
   end
 end

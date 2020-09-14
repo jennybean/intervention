@@ -29,7 +29,6 @@ module Api
       end
 
       def destroy
-        binding.pry
         user = User.find_by_id(params[:id])
         user.destroy!
 
