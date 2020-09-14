@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "@emotion/styled";
+import { ThemeProvider } from "emotion-theming";
+import getTheme from "./getTheme";
+import Widget from "./components/widget";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
+  alignItems: "center",
+  background: lighterColor,
+  display: "flex",
+  height: "100vh",
+  justifyContent: "center",
+  width: "100vw",
+}));
+
+const App = () => (
+  <ThemeProvider theme={getTheme()}>
+    <StyledApp>
+      <Widget />
+    </StyledApp>
+  </ThemeProvider>
+);
 
 export default App;
