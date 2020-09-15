@@ -24,6 +24,9 @@ module Api
         project_question = ProjectQuestion.find_by_id(params[:id])
         project_question.update!(**project_question_params&.to_h&.symbolize_keys)
 
+        # TODO
+        # Check vote counts and if a majority votes yes, send email to all team leads
+        # Also, add a new method for updating votes for a single user
         render json: project_question
       end
 
