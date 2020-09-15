@@ -3,17 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/preset-react": "^7.10.4",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
+    "@rails/webpacker": "5.2.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "emotion-theming": "^10.0.27",
     "polished": "^3.6.6",
     "prettier": "^2.1.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
+    "react_ujs": "^2.6.1",
     "uuid": "^8.3.0"
   },
   "scripts": {
@@ -25,21 +31,10 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "husky": "^4.3.0",
-    "pretty-quick": "^3.0.2"
+    "pretty-quick": "^3.0.2",
+    "webpack-dev-server": "^3.11.0"
   },
   "husky": {
     "hooks": {
