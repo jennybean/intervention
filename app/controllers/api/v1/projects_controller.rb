@@ -9,20 +9,20 @@ module Api
       end
 
       def index
-        projects = Project.all
+        projects = Project.where("#{@current_user&.id} = ANY(team_lead_user_ids)").or(Project.where("#{@current_user&.id} = ANY(team_member_user_ids)"))
 
         render json: projects
       end
 
       def create
-        project = Project.create!(**project_params&.to_h&.symbolize_keys)
+        project = Project.create!(**project_params)
 
         render json: project
       end
 
       def update
         project = Project.find_by_id(params[:id])
-        project.update!(**project_params&.to_h&.symbolize_keys)
+        project.update!(**project_params)
 
         render json: project
       end
@@ -35,7 +35,7 @@ module Api
       end
 
       def project_params
-        params.permit(:name, team_lead_user_ids: [], team_member_user_ids: [])
+        params.permit(:name, team_lead_user_ids: [], team_member_user_ids: [])&.to_h&.symbolize_keys
       end
 
     end
