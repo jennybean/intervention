@@ -4,6 +4,11 @@ import { ThemeProvider } from "emotion-theming";
 import getTheme from "./helpers/getTheme";
 import LoginPage from "./LoginPage";
 
+import { Provider } from "react-redux";
+import store from "../app/store";
+import saga from "../app/sagas";
+import { sagaMiddleware } from "../app/middleware";
+
 const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
   alignItems: "center",
   background: lighterColor,
@@ -14,11 +19,15 @@ const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
 }));
 
 const RootComponent = ({ current_user }) => (
-  <ThemeProvider theme={getTheme()}>
-    <StyledApp>
-      {!current_user ? <LoginPage /> : <div>RootComponent</div>}
-    </StyledApp>
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider theme={getTheme()}>
+      <StyledApp>
+        {!current_user ? <LoginPage /> : <div>RootComponent</div>}
+      </StyledApp>
+    </ThemeProvider>
+  </Provider>
 );
 
 export default RootComponent;
+
+sagaMiddleware.run(saga);
