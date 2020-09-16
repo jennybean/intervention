@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Actions } from "../data/authentication";
 
 import styled from "@emotion/styled";
+import Button from "./library/button";
 import TextInput from "./library/text-input";
 
 const FlexContainer = styled.div({
@@ -35,29 +36,9 @@ const Input = styled(TextInput)({
   width: "100%",
 });
 
-const Button = styled.button(({ theme: { inverseColor } }) => ({
-  backgroundColor: inverseColor,
-  border: "none",
-  borderRadius: 3,
-  color: "white",
-  fontSize: 16,
-  fontWeight: "bold",
-  marginBottom: 10,
+const SubmitButton = styled(Button)({
   width: "100%",
-  padding: 5,
-  "&:active, &:focus": {
-    outline: "none",
-  },
-  "&:hover": {
-    cursor: "pointer",
-    boxShadow: "-2.5px 2.5px 2.5px 0px rgba(0,0,0,0.1)",
-  },
-  "&:disabled": {
-    cursor: "not-allowed",
-    boxShadow: "none",
-    opacity: 0.5,
-  },
-}));
+});
 
 const TextButton = styled.button(({ theme: { primaryColor } }) => ({
   backgroundColor: "white",
@@ -120,9 +101,11 @@ const LoginPage = () => {
             </>
           )}
         </form>
-        <Button disabled={!email || !password} onClick={onClick}>
-          {label}
-        </Button>
+        <SubmitButton
+          disabled={!email || !password}
+          onClick={onClick}
+          label={label}
+        />
         <TextButton
           onClick={() => setPage(page === "login" ? "signup" : "login")}
         >

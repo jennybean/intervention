@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import { Selectors } from "../../data/current-user";
-import LogoutButton from "./logout-button";
-import avatar from "./avatar-white.png";
+import avatar from "../library/avatar-white.png";
+import LogoutButton from "./LogoutButton";
 
 const StyledProfile = styled.div(({ theme: { primaryColor } }) => ({
   backgroundColor: primaryColor,

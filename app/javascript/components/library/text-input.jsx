@@ -6,6 +6,7 @@ const Input = styled.input(({ theme: { primaryColor } }) => ({
   borderRadius: 2,
   boxSizing: "border-box",
   padding: 5,
+  width: "100%",
   "&:active, &:focus": {
     border: `1px solid ${primaryColor}`,
     outline: "none",
