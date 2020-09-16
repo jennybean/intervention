@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Profile from "./components/profile";
-import SwitchButton from "./components/switch-button";
+import Profile from "./library/profile";
+import SwitchButton from "./library/switch-button";
 
 const Container = styled.div({
   maxWidth: 400,

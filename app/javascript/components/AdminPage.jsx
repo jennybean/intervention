@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Profile from "./components/profile";
-import DonutChart from "./components/donut-chart";
+import Profile from "./library/profile";
+import DonutChart from "./library/donut-chart";
 
-import data from "./components/data";
+import data from "./library/data";
 
 const Container = styled.div({
   maxWidth: 400,
