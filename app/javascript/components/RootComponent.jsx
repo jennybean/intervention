@@ -1,11 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { ThemeProvider } from "emotion-theming";
-import getTheme from "./getTheme";
-import AdminPage from "./AdminPage";
-import MemberPage from "./MemberPage";
-
-import data from "./components/data";
+import getTheme from "./helpers/getTheme";
+import LoginPage from "./LoginPage";
 
 const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
   alignItems: "center",
@@ -16,10 +13,12 @@ const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
   width: "100vw",
 }));
 
-const App = () => (
+const RootComponent = ({ current_user }) => (
   <ThemeProvider theme={getTheme()}>
-    <StyledApp>{data.isAdmin ? <AdminPage /> : <MemberPage />}</StyledApp>
+    <StyledApp>
+      {!current_user ? <LoginPage /> : <div>RootComponent</div>}
+    </StyledApp>
   </ThemeProvider>
 );
 
-export default App;
+export default RootComponent;

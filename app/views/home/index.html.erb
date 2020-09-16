@@ -1,10 +1,1 @@
-<% if current_user %>
-  Logged in as <%= current_user.email %>.
-  <!-- erb: paste this in view -->
-  <%= react_component("HelloWorld", { greeting: "Hello from react-rails. NAME: #{current_user.first_name} #{current_user.last_name}" }) %>
-  <%= link_to 'Log Out', logout_path %>
-<% else %>
-  <%= link_to 'Sign Up', signup_path %> or
-  <%= link_to 'Log In', login_path %>
-<% end %>
-<p id='notice'><%= notice %></p>
+<%= react_component("RootComponent", { current_user: current_user }) %>
