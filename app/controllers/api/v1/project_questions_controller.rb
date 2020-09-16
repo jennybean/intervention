@@ -16,25 +16,36 @@ module Api
       end
 
       def create
-        project_question = ProjectQuestion.create!(**project_question_params)
+        questions = project_question_params[:question_text].map do |question|
+          project_question = ProjectQuestion.create!(project_id: project_question_params[:project_id], question_text: question)
+        end
 
-        render json: project_question
+        render json: questions
       end
 
       def update
         project_question = ProjectQuestion.find_by_id(params[:id])
-        if single_user_params[:user_id]
 
+        if single_user_params[:user_id] && single_user_params[:vote]
           render json: { message: 'Invalid user id' }, status: 404 and return unless valid_user_id?(single_user_params[:user_id])
-          yes_votes = project_question.yes_votes.reject { |id| id == single_user_params[:user_id]}
-          no_votes = project_question.no_votes.reject { |id| id == single_user_params[:user_id]}
+
+          yes_votes = project_question.yes_votes.reject { |id| id == single_user_params[:user_id] }&.uniq
+          no_votes = project_question.no_votes.reject { |id| id == single_user_params[:user_id] }&.uniq
           single_user_params[:vote] == 'yes' ? yes_votes << single_user_params[:user_id] : no_votes << single_user_params[:user_id]
           project_question.update!(yes_votes: yes_votes, no_votes: no_votes)
         else
-          yes_votes = project_question_params[:yes_votes].select { |id| valid_user_id?(id) }
-          no_votes = project_question_params[:no_votes].select { |id| valid_user_id?(id) }
-          project_question_params.merge!(yes_votes: yes_votes, no_votes: no_votes)
-          project_question.update!(**project_question_params)
+          yes_votes = project_question_params[:yes_votes]&.select { |id| valid_user_id?(id) } || project_question.yes_votes
+          no_votes = project_question_params[:no_votes]&.select { |id| valid_user_id?(id) } || project_question.no_votes
+
+          if project_question_params[:no_votes]
+            yes_votes = yes_votes - project_question_params[:no_votes]
+          elsif project_question_params[:yes_votes]
+            no_votes = no_votes - project_question_params[:yes_votes]
+          end
+
+          question_text = project_question_params[:question_text]&.first || project_question.question_text
+
+          project_question.update!(question_text: question_text, yes_votes: yes_votes&.uniq, no_votes: no_votes&.uniq)
         end
 
         # TODO
@@ -63,7 +74,7 @@ module Api
       private
 
       def project_question_params
-        params.permit(:project_id, :question_text, yes_votes: [], no_votes: [])&.to_h&.symbolize_keys
+        params.permit(:project_id, question_text: [], yes_votes: [], no_votes: [])&.to_h&.symbolize_keys
       end
 
       def single_user_params
