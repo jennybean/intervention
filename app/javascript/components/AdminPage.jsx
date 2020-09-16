@@ -3,8 +3,6 @@ import styled from "@emotion/styled";
 import Profile from "./library/profile";
 import DonutChart from "./library/donut-chart";
 
-import data from "./library/data";
-
 const Container = styled.div({
   maxWidth: 400,
   width: "100%",
@@ -20,12 +18,12 @@ const AdminPage = () => (
     <Profile />
     <Survey>
       <DonutChart
-        value={data.selfNeedsIntervention}
+        // value={data.selfNeedsIntervention}
         description="I am stressed. I need a day off."
       />
       <DonutChart
         showInverseColor
-        value={data.teamNeedsIntervention}
+        // value={data.teamNeedsIntervention}
         description="Team morale is low. We all need a day off."
       />
     </Survey>

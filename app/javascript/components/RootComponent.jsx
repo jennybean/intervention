@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { ThemeProvider } from "emotion-theming";
 import getTheme from "./helpers/getTheme";
 import LoginPage from "./LoginPage";
+import Dashboard from "./Dashboard";
 
 import { Provider } from "react-redux";
 import store from "../app/store";
@@ -18,12 +19,10 @@ const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
   width: "100vw",
 }));
 
-const RootComponent = ({ current_user }) => (
+const RootComponent = ({ id }) => (
   <Provider store={store}>
     <ThemeProvider theme={getTheme()}>
-      <StyledApp>
-        {!current_user ? <LoginPage /> : <div>RootComponent</div>}
-      </StyledApp>
+      <StyledApp>{!id ? <LoginPage /> : <Dashboard id={id} />}</StyledApp>
     </ThemeProvider>
   </Provider>
 );

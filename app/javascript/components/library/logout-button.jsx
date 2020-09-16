@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { Actions } from "../../data/authentication";
+
 import styled from "@emotion/styled";
 
 const StyledButton = styled.button(({ theme: { primaryColor } }) => ({
@@ -18,6 +21,13 @@ const StyledButton = styled.button(({ theme: { primaryColor } }) => ({
   },
 }));
 
-const LogoutButton = () => <StyledButton>Log out</StyledButton>;
+const LogoutButton = () => {
+  const dispatch = useDispatch();
+  const onClick = useCallback(() => {
+    dispatch(Actions.logout());
+  }, [dispatch]);
+
+  return <StyledButton onClick={onClick}>Log out</StyledButton>;
+};
 
 export default LogoutButton;
