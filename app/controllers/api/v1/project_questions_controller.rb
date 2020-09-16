@@ -9,8 +9,8 @@ module Api
       end
 
       def index
-        project_id = Project.where("#{@current_user&.id} = ANY(team_lead_user_ids)").or(Project.where("#{@current_user&.id} = ANY(team_member_user_ids)"))
-        project_questions = ProjectQuestion.where(project_id: project_id)
+        project_ids = Project.where("#{@current_user&.id} = ANY(team_lead_user_ids)").or(Project.where("#{@current_user&.id} = ANY(team_member_user_ids)"))
+        project_questions = ProjectQuestion.where(project_id: project_ids)
 
         render json: project_questions
       end
@@ -50,9 +50,12 @@ module Api
       end
 
       def single_user
-        project_question = ProjectQuestion.find_by_id(single_user_params[:question_id])
-        vote = project_question.yes_votes.include?(single_user_params[:user_id]) ? 'yes' : 'no'
-        single_user_question_data = { id: project_question.id, question_text: project_question.question_text, project_id: project_question.project_id, vote: vote }
+        project_ids = Project.where("#{@current_user&.id} = ANY(team_lead_user_ids)").or(Project.where("#{@current_user&.id} = ANY(team_member_user_ids)"))
+        project_questions = ProjectQuestion.where(project_id: project_ids)
+        single_user_question_data = project_questions.map do |project_question|
+          vote = project_question.yes_votes.include?(single_user_params[:user_id]) ? 'yes' : 'no'
+          { id: project_question.id, question_text: project_question.question_text, project_id: project_question.project_id, vote: vote }
+        end
 
         render json: single_user_question_data
       end
@@ -64,7 +67,7 @@ module Api
       end
 
       def single_user_params
-        params.permit(:user_id, :question_id, :vote)&.to_h&.symbolize_keys # vote options are 'yes' or 'no'
+        params.permit(:user_id, :vote)&.to_h&.symbolize_keys # vote options are 'yes' or 'no'
       end
 
       def valid_user_id?(user_id)
