@@ -10,8 +10,7 @@ module Api
       end
 
       def index
-        user_ids = Project.where("#{@current_user&.id} = ANY(team_lead_user_ids)").or(Project.where("#{@current_user&.id} = ANY(team_member_user_ids)")).pluck(:team_lead_user_ids, :team_member_user_ids).flatten
-        users = User.where(id: user_ids)
+        users = User.all
 
         render json: users
       end
