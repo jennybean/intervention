@@ -1,5 +1,5 @@
 class TeamLeadMailer < ApplicationMailer
-  default from: 'notifications@example.com'
+  default from: 'intervention@email.com'
 
   def intervention_email
     @team_leads = User.where(id: params[:team_lead_user_ids])

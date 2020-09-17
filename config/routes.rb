@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :projects
       resources :project_questions
       post '/single_user_questions', controller: :project_questions, action: :single_user
+      post '/questions_by_project', controller: :project_questions, action: :by_project
     end
   end
 end

@@ -71,6 +71,12 @@ module Api
         render json: single_user_question_data
       end
 
+      def by_project
+        project_questions = ProjectQuestion.where(project_id: project_question_params[:project_id])
+
+        render json: project_questions
+      end
+
       private
 
       def project_question_params
