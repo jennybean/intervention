@@ -48,8 +48,7 @@ module Api
           project_question.update!(question_text: question_text, yes_votes: yes_votes&.uniq, no_votes: no_votes&.uniq)
         end
 
-        # TODO
-        # Check vote counts and if a majority votes yes, send email to all team leads
+        send_intervention_email(project_question) if project_question.yes_votes.size > email_threshold_count(project_question)
         render json: project_question
       end
 
@@ -90,6 +89,26 @@ module Api
       def valid_user_id?(user_id)
         # Make sure we're only updating with a real user who is either a member or team lead on the project
         Project.where("#{user_id} = ANY(team_lead_user_ids)").or(Project.where("#{user_id} = ANY(team_member_user_ids)")).any?
+      end
+
+      def email_threshold_count(project_question)
+        team_member_count = Project.where(id: project_question.project_id).first&.team_member_user_ids.size
+        team_member_count / 2 if team_member_count # shouldn't happen but in case of nil
+      end
+
+      def send_intervention_email(project_question)
+        project = Project.where(id: project_question.project_id).first
+        team_leads = User.where(id: project&.team_lead_user_ids)
+        team_leads.find_each do |team_lead|
+          TeamLeadMailer.with(
+            project_name: project.name,
+            team_lead_email: team_lead&.email,
+            question_text: project_question.question_text,
+            yes_votes_count: project_question.yes_votes.size,
+            no_votes_count: project_question.no_votes.size,
+            url: root_url
+          ).intervention_email.deliver_now
+        end
       end
 
     end

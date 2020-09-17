@@ -4,13 +4,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Intervention Recommended </h1>
+    <h2>Question: "<%= @question_text %>"</h2>
     <p>
-      <%= @yes_votes_count %> out of <%= @total_votes_count %> have answered YES
-      to your question: "<%= @question_text %>"<br>
+      Results: <%= @yes_votes_count %> out of <%= @total_votes %> team members from <%=@project_name%>
+      have answered 'yes'.<br>
     </p>
     <p>
-      Log in to Intervention here for more information: <%= @url %>.
+      View your full Intervention dashboard <a href=<%=@url%>>here</a>.
     </p>
   </body>
 </html>
