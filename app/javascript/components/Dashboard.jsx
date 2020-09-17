@@ -10,9 +10,11 @@ import styled from "@emotion/styled";
 import AdminProject from "./widgets/AdminProject";
 import CreateProject from "./widgets/CreateProject";
 import CreateProjectButton from "./widgets/CreateProjectButton";
+import MemberProject from "./widgets/MemberProject";
 import Profile from "./widgets/Profile";
 
 const Container = styled.div({
+  maxHeight: "90vh",
   maxWidth: 400,
   width: "100%",
 });
@@ -51,7 +53,7 @@ const Dashboard = ({ id }) => {
             <CreateButtonWrapper>
               <CreateProjectButton onClick={() => setPanel("create")} />
             </CreateButtonWrapper>
-            {isAdmin ? <AdminProject /> : <div>SwitchButtons</div>}
+            {isAdmin ? <AdminProject /> : <MemberProject />}
           </>
         )}
       </Panel>

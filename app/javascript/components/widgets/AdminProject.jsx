@@ -34,8 +34,9 @@ const AdminProject = () => {
   const onSave = useCallback(
     ({ name, members }) => {
       dispatch(ProjectActions.updateProject({ id, name, members }));
+      setPanel("projects");
     },
-    [dispatch, id]
+    [dispatch, id, setPanel]
   );
 
   return panel === "projects" ? (

@@ -23,6 +23,8 @@ export default handleActions(
     [Types.GET_PROJECT_SUCCESS]: successReducer,
     [Types.UPDATE_PROJECT]: loadingReducer,
     [Types.UPDATE_PROJECT_SUCCESS]: successReducer,
+    [Types.UPDATE_VOTE]: loadingReducer,
+    [Types.UPDATE_VOTE_SUCCESS]: successReducer,
   },
   initialState
 );

@@ -22,7 +22,7 @@ export const getProject = createSelector(
             id: q.id,
             text: q.question_text,
             value: q.yes_votes.length
-              ? q.yes_votes.length / (q.no_votes.length + q.yes_votes.length)
+              ? q.yes_votes.length / data.team_member_user_ids.length
               : 0,
           })),
         }
@@ -33,4 +33,23 @@ export const getProjectMemberOptions = createSelector(
   UserSelectors.getUserOptions,
   ({ memberIds }, users) =>
     users.filter(({ value }) => memberIds.includes(value))
+);
+
+export const getMemberProject = createSelector(
+  getData,
+  CurrentUserSelectors.getUser,
+  (data, { id }) =>
+    !Object.keys(data).length
+      ? emptyObject
+      : {
+          name: data.name,
+          id: data.id,
+          questions: data.questions.map((q) => ({
+            id: q.id,
+            text: q.question_text,
+            yesVotes: q.yes_votes,
+            noVotes: q.no_votes,
+            vote: q.yes_votes.includes(id) ? "yes" : "no",
+          })),
+        }
 );

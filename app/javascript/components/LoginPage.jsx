@@ -70,8 +70,9 @@ const LoginPage = () => {
       dispatch(Actions.login({ email, password }));
     } else {
       dispatch(Actions.signup({ email, password, firstName, lastName }));
+      setPage("login");
     }
-  }, [dispatch, email, password, firstName, lastName, page]);
+  }, [dispatch, email, password, firstName, lastName, page, setPage]);
 
   return (
     <FlexContainer>
@@ -91,19 +92,23 @@ const LoginPage = () => {
             <>
               <Input
                 onChange={setFirstName}
-                placeholder="First name (optional)"
+                placeholder="First name"
                 value={firstName}
               />
               <Input
                 onChange={setLastName}
-                placeholder="Last name (optional)"
+                placeholder="Last name"
                 value={lastName}
               />
             </>
           )}
         </form>
         <SubmitButton
-          disabled={!email || !password}
+          disabled={
+            page === "login"
+              ? !email || !password
+              : !email || !password || !firstName || !lastName
+          }
           onClick={onClick}
           label={label}
         />

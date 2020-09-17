@@ -13,3 +13,5 @@ export const getProject = createAction(Types.GET_PROJECT);
 export const getProjectSuccess = createAction(Types.GET_PROJECT_SUCCESS);
 export const updateProject = createAction(Types.UPDATE_PROJECT);
 export const updateProjectSuccess = createAction(Types.UPDATE_PROJECT_SUCCESS);
+export const updateVote = createAction(Types.UPDATE_VOTE);
+export const updateVoteSuccess = createAction(Types.UPDATE_VOTE_SUCCESS);

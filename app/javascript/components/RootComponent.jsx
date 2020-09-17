@@ -16,6 +16,7 @@ const StyledApp = styled.div(({ theme: { lighterColor } }) => ({
   display: "flex",
   height: "100vh",
   justifyContent: "center",
+  overflow: "auto",
   width: "100vw",
 }));
 

@@ -39,7 +39,7 @@ const DonutChart = ({ description, showInverseColor, value }) => {
   return (
     <FlexContainer>
       <RelativeContainer>
-        <Label>{value * 100 + "%"}</Label>
+        <Label>{Math.floor(value * 100) + "%"}</Label>
         <div className="donut">
           <Svg xmlns="http://www.w3.org/2000/svg">
             <g>

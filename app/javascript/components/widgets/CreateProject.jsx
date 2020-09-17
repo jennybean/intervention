@@ -16,10 +16,11 @@ const CreateProject = ({ onCancel }) => {
 
   const dispatch = useDispatch();
   const onSave = useCallback(
-    (name, questions) => {
-      dispatch(Actions.createProject({ name, questions }));
+    ({ name, text, members }) => {
+      dispatch(Actions.createProject({ name, questions: text, members }));
+      onCancel();
     },
-    [dispatch]
+    [dispatch, onCancel]
   );
 
   return (
