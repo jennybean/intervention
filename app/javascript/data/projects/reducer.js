@@ -21,6 +21,8 @@ export default handleActions(
     [Types.GET_PROJECTS_SUCCESS]: successReducer,
     [Types.GET_PROJECT]: loadingReducer,
     [Types.GET_PROJECT_SUCCESS]: successReducer,
+    [Types.UPDATE_PROJECT]: loadingReducer,
+    [Types.UPDATE_PROJECT_SUCCESS]: successReducer,
   },
   initialState
 );

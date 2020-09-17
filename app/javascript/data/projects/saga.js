@@ -57,9 +57,26 @@ export function* getProject(action) {
   yield put(Actions.getProjectSuccess({ ...data, questions }));
 }
 
+// Update Existing Project:
+// PUT to localhost:3000/api/v1/projects/ID
+// params: { "name": "cool project name", "team_lead_user_ids": [1, 2], "team_member_user_ids": [3,4,5,6,7,8,9,10]}
+export function* updateProject(action) {
+  const { id, name, members } = action.payload;
+
+  yield fetch(`/api/v1/projects/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name,
+      team_member_user_ids: members,
+    }),
+  }).then((response) => response.json());
+}
+
 export default function* () {
   yield takeEvery(Types.CREATE_PROJECT, createProject);
   yield takeEvery(Types.CREATE_QUESTION, createQuestion);
   yield takeEvery(Types.GET_PROJECTS, getProjects);
   yield takeEvery(Types.GET_PROJECT, getProject);
+  yield takeEvery(Types.UPDATE_PROJECT, updateProject);
 }

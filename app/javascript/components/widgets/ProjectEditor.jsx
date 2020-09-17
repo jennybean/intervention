@@ -39,7 +39,12 @@ const Buttons = styled.div({
   marginTop: 10,
 });
 
-const QuestionInput = ({ index, question, updateQuestions }) => {
+const QuestionInput = ({
+  index,
+  question,
+  updateQuestions,
+  readOnlyQuestions,
+}) => {
   const [value, setValue] = useState(question);
 
   const onChange = (v) => {
@@ -49,6 +54,7 @@ const QuestionInput = ({ index, question, updateQuestions }) => {
 
   return (
     <Input
+      disabled={readOnlyQuestions}
       onChange={onChange}
       placeholder="Ask a yes or no question"
       value={value}
@@ -95,13 +101,14 @@ const MemberDropdown = ({ options, projectMembers, setMembers }) => {
 const ProjectEditor = ({
   projectAdminIds,
   projectName,
-  projectQuestions,
+  projectQuestionsText,
   projectMembers,
   onCancel,
   onSave,
+  readOnlyQuestions,
 }) => {
   const [name, setName] = useState(projectName);
-  const [questions, setQuestions] = useState(projectQuestions);
+  const [questions, setQuestions] = useState(projectQuestionsText);
   const [members, setMembers] = useState([]);
 
   const users = useSelector(UsersSelectors.getUserOptions);
@@ -127,7 +134,7 @@ const ProjectEditor = ({
   );
 
   const handleSave = useCallback(() => {
-    onSave({ name, questions, members });
+    onSave({ name, text: questions, members });
   }, [onSave, name, questions, members]);
 
   return (
@@ -142,14 +149,17 @@ const ProjectEditor = ({
             index={i}
             question={q}
             updateQuestions={updateQuestions}
+            readOnlyQuestions={readOnlyQuestions}
           />
         ))}
       </form>
-      <AddButton
-        label="Add new question +"
-        onClick={addNewQuestion}
-        size="small"
-      />
+      {!readOnlyQuestions && (
+        <AddButton
+          label="Add new question +"
+          onClick={addNewQuestion}
+          size="small"
+        />
+      )}
       {!!options.length && (
         <MemberDropdown
           projectMembers={projectMembers}
@@ -175,6 +185,7 @@ ProjectEditor.defaultProps = {
   projectAdminIds: [],
   projectMembers: [],
   projectName: "",
-  projectQuestions: [""],
+  projectQuestionsText: [""],
+  readOnlyQuestions: false,
 };
 export default ProjectEditor;

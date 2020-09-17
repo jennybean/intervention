@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Selectors as ProjectSelectors } from "../../data/projects";
+import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Actions as ProjectActions,
+  Selectors as ProjectSelectors,
+} from "../../data/projects";
 import styled from "@emotion/styled";
 import DonutChart from "../library/donut-chart";
 import TextButton from "../library/text-button";
@@ -22,10 +25,18 @@ const Title = styled.div(({ theme: { primaryColor } }) => ({
 
 const AdminProject = () => {
   const [panel, setPanel] = useState("projects");
-  const { name, questions, adminIds } = useSelector(
+  const { name, questions, adminIds, id } = useSelector(
     ProjectSelectors.getProject
   );
   const members = useSelector(ProjectSelectors.getProjectMemberOptions);
+
+  const dispatch = useDispatch();
+  const onSave = useCallback(
+    ({ name, members }) => {
+      dispatch(ProjectActions.updateProject({ id, name, members }));
+    },
+    [dispatch, id]
+  );
 
   return panel === "projects" ? (
     <>
@@ -50,11 +61,12 @@ const AdminProject = () => {
   ) : (
     <ProjectEditor
       onCancel={() => setPanel("projects")}
-      onSave={(x) => console.log("onSave", x)}
+      onSave={onSave}
       projectAdminIds={adminIds}
       projectMembers={members}
       projectName={name}
-      projectQuestions={questions.map((q) => q.text)}
+      projectQuestionsText={questions.map((q) => q.text)}
+      readOnlyQuestions
     />
   );
 };
