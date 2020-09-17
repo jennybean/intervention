@@ -21,8 +21,11 @@ const Title = styled.div(({ theme: { primaryColor } }) => ({
 }));
 
 const AdminProject = () => {
-  const [panel, setPanel] = useState("edit");
-  const { name, questions } = useSelector(ProjectSelectors.getProject);
+  const [panel, setPanel] = useState("projects");
+  const { name, questions, adminIds } = useSelector(
+    ProjectSelectors.getProject
+  );
+  const members = useSelector(ProjectSelectors.getProjectMemberOptions);
 
   return panel === "projects" ? (
     <>
@@ -46,10 +49,12 @@ const AdminProject = () => {
     </>
   ) : (
     <ProjectEditor
+      onCancel={() => setPanel("projects")}
+      onSave={(x) => console.log("onSave", x)}
+      projectAdminIds={adminIds}
+      projectMembers={members}
       projectName={name}
       projectQuestions={questions.map((q) => q.text)}
-      onCancel={() => setPanel("projects")}
-      onSave={(x, y) => console.log("onSave", x, y)}
     />
   );
 };

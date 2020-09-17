@@ -1,7 +1,9 @@
 import { createSelector } from "reselect";
 import { Selectors as CurrentUserSelectors } from "../current-user";
+import { Selectors as UserSelectors } from "../users";
 
 const emptyObject = {};
+const emptyArray = [];
 const getData = (state) => state.projects;
 
 export const getProject = createSelector(
@@ -14,6 +16,8 @@ export const getProject = createSelector(
           name: data.name,
           id: data.id,
           isAdmin: data.team_lead_user_ids.includes(id),
+          memberIds: data.team_member_user_ids || emptyArray,
+          adminIds: data.team_lead_user_ids || emptyArray,
           questions: data.questions.map((q) => ({
             id: q.id,
             text: q.question_text,
@@ -22,4 +26,11 @@ export const getProject = createSelector(
               : 0,
           })),
         }
+);
+
+export const getProjectMemberOptions = createSelector(
+  getProject,
+  UserSelectors.getUserOptions,
+  ({ memberIds }, users) =>
+    users.filter(({ value }) => memberIds.includes(value))
 );

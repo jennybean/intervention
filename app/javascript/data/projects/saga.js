@@ -35,8 +35,11 @@ export function* getProjects() {
   const data = yield fetch("/api/v1/projects").then((response) =>
     response.json()
   );
+
   // GET first project
-  yield put(Actions.getProject({ id: data[0].id }));
+  if (data.length) {
+    yield put(Actions.getProject({ id: data[0].id }));
+  }
 }
 
 export function* getProject(action) {
