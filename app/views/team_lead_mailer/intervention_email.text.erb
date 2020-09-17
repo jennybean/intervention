@@ -1,7 +1,6 @@
-Intervention Recommended
+Question: "<%= @question_text %>"
 ===============================================
+Results: <%= @yes_votes_count %> out of <%= @total_votes %> team members from <%=@project_name%>
+have answered 'yes'.
 
-<%= @yes_votes_count %> out of <%= @total_votes_count %> have answered YES
-to your question: "<%= @question_text %>"
-
-Log in to Intervention here for more information: <%= @url %>.
+View your full Intervention dashboard <%=link_to "here", @url%>.
