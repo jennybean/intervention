@@ -1,11 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { Actions } from "../../data/projects";
-
 import styled from "@emotion/styled";
-import Button from "../library/button";
-import TextButton from "../library/text-button";
-import TextInput from "../library/text-input";
+import { Actions } from "../../data/projects";
+import ProjectEditor from "./ProjectEditor";
 
 const Header = styled.div(({ theme: { primaryColor } }) => ({
   color: primaryColor,
@@ -13,92 +10,19 @@ const Header = styled.div(({ theme: { primaryColor } }) => ({
   textTransform: "uppercase",
 }));
 
-const Input = styled(TextInput)({
-  marginTop: 20,
-});
-
-const AddButton = styled(TextButton)({
-  marginTop: 5,
-});
-
-const CancelButton = styled(TextButton)({
-  marginLeft: 5,
-});
-
-const Buttons = styled.div({
-  alignItems: "center",
-  display: "flex",
-  justifyContent: "center",
-  marginTop: 10,
-});
-
-const QuestionInput = ({ index, question, updateQuestions }) => {
-  const [value, setValue] = useState(question);
-
-  const onChange = (v) => {
-    setValue(v);
-    updateQuestions(v, index);
-  };
-
-  return (
-    <Input
-      onChange={onChange}
-      placeholder="Ask a yes or no question"
-      value={value}
-    />
-  );
-};
-
 const CreateProject = ({ onCancel }) => {
-  const [name, setName] = useState("");
-  const [questions, setQuestions] = useState([""]);
-
   const dispatch = useDispatch();
-  const onSave = useCallback(() => {
-    dispatch(Actions.createProject({ name, questions }));
-  }, [dispatch, name, questions]);
-
-  const addNewQuestion = useCallback(() => {
-    setQuestions([...questions, ""]);
-  }, [questions, setQuestions]);
-
-  const updateQuestions = useCallback(
-    (question, index) => {
-      const updatedQuestions = Object.assign([], questions, {
-        [index]: question,
-      });
-      setQuestions(updatedQuestions);
+  const onSave = useCallback(
+    (name, questions) => {
+      dispatch(Actions.createProject({ name, questions }));
     },
-    [questions, setQuestions]
+    [dispatch]
   );
 
   return (
     <>
       <Header>Create New Project</Header>
-      <form>
-        <Input onChange={setName} placeholder="Project name" value={name} />
-        {questions.map((q, i) => (
-          <QuestionInput
-            key={`question_${i}`}
-            index={i}
-            question={q}
-            updateQuestions={updateQuestions}
-          />
-        ))}
-      </form>
-      <AddButton
-        label="Add new question +"
-        onClick={addNewQuestion}
-        size="small"
-      />
-      <Buttons>
-        <Button
-          disabled={!name || !questions[0]}
-          label="Save"
-          onClick={onSave}
-        />
-        <CancelButton label="Cancel" onClick={onCancel} variant="secondary" />
-      </Buttons>
+      <ProjectEditor onCancel={onCancel} onSave={onSave} />
     </>
   );
 };

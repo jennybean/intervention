@@ -40,11 +40,11 @@ const DonutChart = ({ description, showInverseColor, value }) => {
     <FlexContainer>
       <RelativeContainer>
         <Label>{value * 100 + "%"}</Label>
-        <div class="donut">
+        <div className="donut">
           <Svg xmlns="http://www.w3.org/2000/svg">
             <g>
               <Circle
-                class="circle_animation"
+                className="circle_animation"
                 cx="81"
                 cy="81"
                 fill="none"

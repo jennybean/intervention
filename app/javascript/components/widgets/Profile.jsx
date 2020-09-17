@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "@emotion/styled";
-import { Selectors } from "../../data/current-user";
+import { Selectors as CurrentUserSelectors } from "../../data/current-user";
+import { Selectors as ProjectSelectors } from "../../data/projects";
 import avatar from "../library/avatar-white.png";
 import LogoutButton from "./LogoutButton";
 
@@ -55,14 +56,15 @@ const Img = styled.img(({ theme: { lighterColor } }) => ({
 }));
 
 const Profile = () => {
-  const { name } = useSelector(Selectors.getUser);
+  const { name } = useSelector(CurrentUserSelectors.getUser);
+  const { isAdmin } = useSelector(ProjectSelectors.getProject);
 
   return (
     <StyledProfile>
       <LogoutButton />
       <User>
         <Name>{name}</Name>
-        {/* {<Badge>Admin</Badge>} */}
+        {isAdmin && <Badge>Admin</Badge>}
         <Avatar>
           <Img src={avatar} />
         </Avatar>

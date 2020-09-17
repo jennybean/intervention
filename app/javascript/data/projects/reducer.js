@@ -17,6 +17,10 @@ export default handleActions(
     [Types.CREATE_PROJECT_SUCCESS]: successReducer,
     [Types.CREATE_QUESTION]: loadingReducer,
     [Types.CREATE_QUESTION_SUCCESS]: successReducer,
+    [Types.GET_PROJECTS]: loadingReducer,
+    [Types.GET_PROJECTS_SUCCESS]: successReducer,
+    [Types.GET_PROJECT]: loadingReducer,
+    [Types.GET_PROJECT_SUCCESS]: successReducer,
   },
   initialState
 );

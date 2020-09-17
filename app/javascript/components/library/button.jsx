@@ -8,7 +8,6 @@ const StyledButton = styled.button(({ theme: { inverseColor } }) => ({
   color: "white",
   fontSize: 16,
   fontWeight: "bold",
-  marginBottom: 10,
   padding: 5,
   "&:active, &:focus": {
     outline: "none",

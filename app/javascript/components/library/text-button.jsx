@@ -5,7 +5,6 @@ const Button = styled.div(({ size, variant, theme: { inverseColor } }) => ({
   color: variant === "primary" ? inverseColor : "black",
   fontSize: size === "default" ? 16 : 12,
   fontWeight: variant === "primary" ? "bold" : "normal",
-  paddingBottom: 10,
   "&:hover": {
     cursor: "pointer",
     textDecoration: "underline",

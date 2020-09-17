@@ -81,6 +81,7 @@ const LoginPage = () => {
         <form>
           <Input onChange={setEmail} placeholder="Email" value={email} />
           <Input
+            // autocomplete="current-password"
             onChange={setPassword}
             placeholder="Password"
             type="password"
