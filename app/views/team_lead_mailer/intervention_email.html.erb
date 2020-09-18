@@ -3,13 +3,17 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
-  <body>
-    <h2>Question: "<%= @question_text %>"</h2>
+  <body style="font-family:helvetica; color:#3d1452;">
+    <h2 style="font-weight: 500">Question: "<%= @question_text %>"</h2>
+    <br>
+    <iframe src="https://giphy.com/embed/LMUOHJCNPvN4I" width="480" height="246" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/how-i-met-your-mother-cbs-LMUOHJCNPvN4I"></a></p>
     <p>
       Results: <%= @yes_votes_count %> out of <%= @total_votes %> team members from <%=@project_name%>
       have answered 'yes'.<br>
     </p>
-    <p>
+    <br>
+    <br>
+    <p style="font-style:italic; font-weight:300">
       View your full Intervention dashboard <a href=<%=@url%>>here</a>.
     </p>
   </body>
