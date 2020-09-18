@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import { Selectors as CurrentUserSelectors } from "../../data/current-user";
-import { Selectors as ProjectSelectors } from "../../data/projects";
+import { Selectors as ProjectSelectors } from "../../data/project";
 import avatar from "../library/avatar-white.png";
 import LogoutButton from "./LogoutButton";
 

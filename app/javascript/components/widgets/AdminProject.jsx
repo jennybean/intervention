@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Actions as ProjectActions,
   Selectors as ProjectSelectors,
-} from "../../data/projects";
+} from "../../data/project";
 import styled from "@emotion/styled";
 import DonutChart from "../library/donut-chart";
 import TextButton from "../library/text-button";

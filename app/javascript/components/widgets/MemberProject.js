@@ -4,7 +4,7 @@ import { Selectors as CurrentUserSelectors } from "../../data/current-user";
 import {
   Actions as ProjectActions,
   Selectors as ProjectSelectors,
-} from "../../data/projects";
+} from "../../data/project";
 import styled from "@emotion/styled";
 import SwitchButton from "../library/switch-button";
 

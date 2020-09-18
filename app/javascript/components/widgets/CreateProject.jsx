@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
-import { Actions } from "../../data/projects";
+import { Actions } from "../../data/project";
 import { Selectors as CurrentUserSelectors } from "../../data/current-user";
 import ProjectEditor from "./ProjectEditor";
 

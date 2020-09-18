@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Actions as CurrentUserActions } from "../data/current-user";
-import {
-  Actions as ProjectActions,
-  Selectors as ProjectSelectors,
-} from "../data/projects";
+import { Selectors as ProjectSelectors } from "../data/project";
 
 import styled from "@emotion/styled";
 import AdminProject from "./widgets/AdminProject";
 import CreateProject from "./widgets/CreateProject";
-import CreateProjectButton from "./widgets/CreateProjectButton";
 import MemberProject from "./widgets/MemberProject";
 import Profile from "./widgets/Profile";
+import ProjectsDropdown from "./widgets/ProjectsDropdown";
+import TextButton from "./library/text-button";
 
 const Container = styled.div({
   maxHeight: "90vh",
@@ -24,10 +22,14 @@ const Panel = styled.div({
   padding: 20,
 });
 
+const Dropdown = styled(ProjectsDropdown)({
+  marginRight: 5,
+});
+
 const CreateButtonWrapper = styled.div({
   alignItems: "center",
   display: "flex",
-  justifyContent: "flex-end",
+  justifyContent: "space-between",
   width: "100%",
   marginBottom: 20,
 });
@@ -39,7 +41,6 @@ const Dashboard = ({ id }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(CurrentUserActions.getUser({ id }));
-    dispatch(ProjectActions.getProjects());
   }, [dispatch, id]);
 
   return (
@@ -51,7 +52,12 @@ const Dashboard = ({ id }) => {
         ) : (
           <>
             <CreateButtonWrapper>
-              <CreateProjectButton onClick={() => setPanel("create")} />
+              <Dropdown />
+              <TextButton
+                label="Create new project +"
+                size="small"
+                onClick={() => setPanel("create")}
+              />
             </CreateButtonWrapper>
             {isAdmin ? <AdminProject /> : <MemberProject />}
           </>

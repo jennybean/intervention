@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select";
 import styled from "@emotion/styled";
 import {
   Actions as UsersActions,
   Selectors as UsersSelectors,
 } from "../../data/users";
 import Button from "../library/button";
+import Dropdown from "../library/dropdown";
 import TextButton from "../library/text-button";
 import TextInput from "../library/text-input";
 
@@ -84,15 +84,12 @@ const MemberDropdown = ({ options, projectMembers, setMembers }) => {
   return (
     <>
       <Title>Members</Title>
-      <Select
-        value={selections}
+      <Dropdown
         isMulti
         name="Members"
-        options={options}
-        isClearable={false}
         onChange={onChange}
-        // className="basic-multi-select"
-        // classNamePrefix="select"
+        options={options}
+        value={selections}
       />
     </>
   );
