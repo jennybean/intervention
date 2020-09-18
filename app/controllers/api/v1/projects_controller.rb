@@ -60,12 +60,10 @@ module Api
       def projects_with_emails(projects)
         if projects.is_a?(Array)
           projects.map do |project|
-            project.merge!(team_lead_emails: team_lead_emails(project), team_member_emails: team_member_emails(project))
+            project.merge!(team_lead_emails: team_lead_emails(project['team_lead_user_ids']), team_member_emails: team_member_emails(project['team_member_user_ids']))
           end
         else
-          team_lead_ids = projects['team_lead_user_ids']
-          member_ids = projects['team_member_user_ids']
-          projects.merge!(team_lead_emails: team_lead_emails(team_lead_ids), team_member_emails: team_member_emails(member_ids))
+          projects.merge!(team_lead_emails: team_lead_emails(projects['team_lead_user_ids']), team_member_emails: team_member_emails(projects['team_member_user_ids']))
         end
       end
 
