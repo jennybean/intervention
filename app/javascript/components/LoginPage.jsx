@@ -74,6 +74,32 @@ const LoginPage = () => {
     }
   }, [dispatch, email, password, firstName, lastName, page, setPage]);
 
+  const onLoginSubmit = useCallback(
+    (e) => {
+      if (e.key === "Enter" && page === "login" && !!email && !!password) {
+        dispatch(Actions.login({ email, password }));
+      }
+    },
+    [dispatch, email, password, page]
+  );
+
+  const onSignupSubmit = useCallback(
+    (e) => {
+      if (
+        e.key === "Enter" &&
+        page === "signup" &&
+        !!email &&
+        !!password &&
+        !!firstName &&
+        !!lastName
+      ) {
+        dispatch(Actions.signup({ email, password, firstName, lastName }));
+        setPage("login");
+      }
+    },
+    [dispatch, email, password, firstName, lastName, page, setPage]
+  );
+
   return (
     <FlexContainer>
       <Logo>Intervention</Logo>
@@ -84,6 +110,7 @@ const LoginPage = () => {
           <Input
             // autocomplete="current-password"
             onChange={setPassword}
+            onKeyDown={onLoginSubmit}
             placeholder="Password"
             type="password"
             value={password}
@@ -99,6 +126,7 @@ const LoginPage = () => {
                 onChange={setLastName}
                 placeholder="Last name"
                 value={lastName}
+                onKeyDown={onSignupSubmit}
               />
             </>
           )}
@@ -109,8 +137,8 @@ const LoginPage = () => {
               ? !email || !password
               : !email || !password || !firstName || !lastName
           }
-          onClick={onClick}
           label={label}
+          onClick={onClick}
         />
         <TextButton
           onClick={() => setPage(page === "login" ? "signup" : "login")}

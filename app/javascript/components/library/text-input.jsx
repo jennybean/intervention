@@ -13,20 +13,27 @@ const Input = styled.input(({ theme: { primaryColor } }) => ({
   },
 }));
 
-const TextInput = ({ onChange, placeholder, type, value, ...props }) => {
-  return (
-    <Input
-      onChange={(e) => onChange(e.currentTarget.value)}
-      placeholder={placeholder}
-      type={type}
-      value={value}
-      {...props}
-    />
-  );
-};
+const TextInput = ({
+  onChange,
+  onSubmit,
+  placeholder,
+  type,
+  value,
+  ...props
+}) => (
+  <Input
+    onChange={(e) => onChange(e.currentTarget.value)}
+    onSubmit={onSubmit}
+    placeholder={placeholder}
+    type={type}
+    value={value}
+    {...props}
+  />
+);
 
 TextInput.defaultProps = {
   onChange: () => undefined,
+  onSubmit: () => undefined,
   placeholder: "",
   type: "text",
   value: "",
