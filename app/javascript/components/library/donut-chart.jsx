@@ -1,7 +1,7 @@
 // http://jsfiddle.net/4azpfk3r/
 import React from "react";
+import { css, keyframes } from "@emotion/core";
 import styled from "@emotion/styled";
-import "./donut-chart.css";
 
 const FlexContainer = styled.div({
   alignItems: "center",
@@ -24,41 +24,53 @@ const Svg = styled.svg({
   width: 160,
 });
 
-const Circle = styled.circle(
-  ({ showInverseColor, theme: { inverseColor, primaryColor } }) => ({
-    stroke: showInverseColor ? inverseColor : primaryColor,
-    strokeWidth: 8,
-  })
-);
-
 const Description = styled.div({
   marginLeft: 20,
 });
 
-const DonutChart = ({ description, showInverseColor, value }) => {
-  return (
-    <FlexContainer>
-      <RelativeContainer>
-        <Label>{Math.floor(value * 100) + "%"}</Label>
-        <div className="donut">
-          <Svg xmlns="http://www.w3.org/2000/svg">
-            <g>
-              <Circle
-                className="circle_animation"
-                cx="81"
-                cy="81"
-                fill="none"
-                id="circle_animation"
-                r="69.85699"
-                showInverseColor={showInverseColor}
-              />
-            </g>
-          </Svg>
-        </div>
-      </RelativeContainer>
-      <Description>{description}</Description>
-    </FlexContainer>
-  );
-};
+const animation = (value) => keyframes`
+  from {
+    stroke-dashoffset: 440;
+  }
+  100% {
+    stroke-dashoffset: ${440 - value * 440};
+  }
+`;
+
+const Circle = styled.circle`
+  stroke-width: 8;
+  stroke-dasharray: 440;
+  stroke: ${({ showInverseColor, theme: { inverseColor, primaryColor } }) =>
+    showInverseColor ? inverseColor : primaryColor};
+  animation: ${({ value }) =>
+    css`
+      ${animation(value)} 1s ease-out forwards
+    `};
+`;
+
+const DonutChart = ({ description, showInverseColor, value }) => (
+  <FlexContainer>
+    <RelativeContainer>
+      <Label>{Math.floor(value * 100) + "%"}</Label>
+      <div className="donut">
+        <Svg xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <Circle
+              // className="circle-animation"
+              cx="81"
+              cy="81"
+              fill="none"
+              id="circle_animation"
+              r="69.85699"
+              showInverseColor={showInverseColor}
+              value={value}
+            />
+          </g>
+        </Svg>
+      </div>
+    </RelativeContainer>
+    <Description>{description}</Description>
+  </FlexContainer>
+);
 
 export default DonutChart;
